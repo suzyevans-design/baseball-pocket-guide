@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-27T22:21:40.011Z",
+  "title": "Design System: Playoff Pocket Guide",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Ivory paper",
+        "tonalRamp": [
+          "oklch(15% 0.0139 88.68)",
+          "oklch(26.43% 0.0139 88.68)",
+          "oklch(37.86% 0.0139 88.68)",
+          "oklch(49.29% 0.0139 88.68)",
+          "oklch(60.71% 0.0139 88.68)",
+          "oklch(72.14% 0.0139 88.68)",
+          "oklch(83.57% 0.0139 88.68)",
+          "oklch(95% 0.0139 88.68)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Guide paper",
+        "tonalRamp": [
+          "oklch(15% 0.0082 91.48)",
+          "oklch(26.43% 0.0082 91.48)",
+          "oklch(37.86% 0.0082 91.48)",
+          "oklch(49.29% 0.0082 91.48)",
+          "oklch(60.71% 0.0082 91.48)",
+          "oklch(72.14% 0.0082 91.48)",
+          "oklch(83.57% 0.0082 91.48)",
+          "oklch(95% 0.0082 91.48)"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Printed ink",
+        "tonalRamp": [
+          "oklch(15% 0.0447 232.23)",
+          "oklch(26.43% 0.0447 232.23)",
+          "oklch(37.86% 0.0447 232.23)",
+          "oklch(49.29% 0.0447 232.23)",
+          "oklch(60.71% 0.0447 232.23)",
+          "oklch(72.14% 0.0447 232.23)",
+          "oklch(83.57% 0.0447 232.23)",
+          "oklch(95% 0.0447 232.23)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted gray-green",
+        "tonalRamp": [
+          "oklch(15% 0.0148 202.78)",
+          "oklch(26.43% 0.0148 202.78)",
+          "oklch(37.86% 0.0148 202.78)",
+          "oklch(49.29% 0.0148 202.78)",
+          "oklch(60.71% 0.0148 202.78)",
+          "oklch(72.14% 0.0148 202.78)",
+          "oklch(83.57% 0.0148 202.78)",
+          "oklch(95% 0.0148 202.78)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Paper rule",
+        "tonalRamp": [
+          "oklch(15% 0.0185 89.37)",
+          "oklch(26.43% 0.0185 89.37)",
+          "oklch(37.86% 0.0185 89.37)",
+          "oklch(49.29% 0.0185 89.37)",
+          "oklch(60.71% 0.0185 89.37)",
+          "oklch(72.14% 0.0185 89.37)",
+          "oklch(83.57% 0.0185 89.37)",
+          "oklch(95% 0.0185 89.37)"
+        ]
+      },
+      "red": {
+        "role": "primary",
+        "displayName": "Rust print",
+        "tonalRamp": [
+          "oklch(15% 0.1266 32.79)",
+          "oklch(26.43% 0.1266 32.79)",
+          "oklch(37.86% 0.1266 32.79)",
+          "oklch(49.29% 0.1266 32.79)",
+          "oklch(60.71% 0.1266 32.79)",
+          "oklch(72.14% 0.1266 32.79)",
+          "oklch(83.57% 0.1266 32.79)",
+          "oklch(95% 0.1266 32.79)"
+        ]
+      },
+      "blue": {
+        "role": "secondary",
+        "displayName": "Cubs blue",
+        "tonalRamp": [
+          "oklch(15% 0.0920 247.64)",
+          "oklch(26.43% 0.0920 247.64)",
+          "oklch(37.86% 0.0920 247.64)",
+          "oklch(49.29% 0.0920 247.64)",
+          "oklch(60.71% 0.0920 247.64)",
+          "oklch(72.14% 0.0920 247.64)",
+          "oklch(83.57% 0.0920 247.64)",
+          "oklch(95% 0.0920 247.64)"
+        ]
+      },
+      "sox": {
+        "role": "secondary",
+        "displayName": "Sox charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0101 216.77)",
+          "oklch(26.43% 0.0101 216.77)",
+          "oklch(37.86% 0.0101 216.77)",
+          "oklch(49.29% 0.0101 216.77)",
+          "oklch(60.71% 0.0101 216.77)",
+          "oklch(72.14% 0.0101 216.77)",
+          "oklch(83.57% 0.0101 216.77)",
+          "oklch(95% 0.0101 216.77)"
+        ]
+      },
+      "pale": {
+        "role": "neutral",
+        "displayName": "Status wash",
+        "tonalRamp": [
+          "oklch(15% 0.0068 145.52)",
+          "oklch(26.43% 0.0068 145.52)",
+          "oklch(37.86% 0.0068 145.52)",
+          "oklch(49.29% 0.0068 145.52)",
+          "oklch(60.71% 0.0068 145.52)",
+          "oklch(72.14% 0.0068 145.52)",
+          "oklch(83.57% 0.0068 145.52)",
+          "oklch(95% 0.0068 145.52)"
+        ]
+      },
+      "note": {
+        "role": "neutral",
+        "displayName": "Context paper",
+        "tonalRamp": [
+          "oklch(15% 0.0146 102.46)",
+          "oklch(26.43% 0.0146 102.46)",
+          "oklch(37.86% 0.0146 102.46)",
+          "oklch(49.29% 0.0146 102.46)",
+          "oklch(60.71% 0.0146 102.46)",
+          "oklch(72.14% 0.0146 102.46)",
+          "oklch(83.57% 0.0146 102.46)",
+          "oklch(95% 0.0146 102.46)"
+        ]
+      },
+      "focus": {
+        "role": "neutral",
+        "displayName": "Keyboard focus",
+        "tonalRamp": [
+          "oklch(15% 0.1315 50.60)",
+          "oklch(26.43% 0.1315 50.60)",
+          "oklch(37.86% 0.1315 50.60)",
+          "oklch(49.29% 0.1315 50.60)",
+          "oklch(60.71% 0.1315 50.60)",
+          "oklch(72.14% 0.1315 50.60)",
+          "oklch(83.57% 0.1315 50.60)",
+          "oklch(95% 0.1315 50.60)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Program title",
+        "purpose": "Serif title with rust italic phrase; 42px on phones and 68px at 1400px and wider."
+      },
+      "headline": {
+        "displayName": "Section heading",
+        "purpose": "Main guide section titles; 27px on phones."
+      },
+      "title": {
+        "displayName": "Subheading",
+        "purpose": "Serif subsection and note titles."
+      },
+      "body": {
+        "displayName": "Readable data",
+        "purpose": "Sans-serif text and controls; targeted larger-text overrides."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "selection-color",
+        "value": "background .18s ease, color .18s ease",
+        "purpose": "Tabs and team controls, only with prefers-reduced-motion: no-preference."
+      },
+      {
+        "name": "open-guide",
+        "value": ".45s cubic-bezier(.16,1,.3,1)",
+        "purpose": "Guide clip-path reveal from inset(0 0 12px round 14px) to inset(0 round 14px), only with reduced motion not requested."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "min-width: 1400px"
+      },
+      {
+        "name": "tablet",
+        "value": "max-width: 800px"
+      },
+      {
+        "name": "phone",
+        "value": "max-width: 560px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Filled action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Official-source action link.",
+      "html": "<a class=\"ds-primary\" href=\"#official\">Official team schedule</a>",
+      "css": ".ds-primary{display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:10px 16px;background:var(--ink,#193746);color:white;border:0;border-radius:6px;text-decoration:none;font:14px Arial,Helvetica,sans-serif}.ds-primary:hover{background:var(--accent,#194e7a)}.ds-primary:focus-visible,.ds-text:focus-visible,.ds-input:focus-visible,.ds-tab:focus-visible{outline:3px solid var(--focus,#b15b20);outline-offset:4px}"
+    },
+    {
+      "name": "Text action",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Refresh and contextual navigation.",
+      "html": "<button class=\"ds-text\">Refresh</button>",
+      "css": ".ds-text{border:0;background:none;min-height:44px;padding:8px 4px;color:var(--accent,#194e7a);font:700 13px Arial,Helvetica,sans-serif;cursor:pointer}.ds-text:hover{color:var(--red,#a04432);text-decoration:underline}.ds-text:disabled{cursor:wait;opacity:.65}.ds-primary:focus-visible,.ds-text:focus-visible,.ds-input:focus-visible,.ds-tab:focus-visible{outline:3px solid var(--focus,#b15b20);outline-offset:4px}"
+    },
+    {
+      "name": "Player search",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Plain search field with an accessible name.",
+      "html": "<input class=\"ds-input\" type=\"search\" aria-label=\"Find a player by name\" placeholder=\"Find a player by name\">",
+      "css": ".ds-input{border:1px solid #aeb7b4;background:var(--white,#fffdf7);color:var(--ink,#193746);border-radius:6px;min-height:44px;padding:8px 12px;min-width:0;font:17px Arial,Helvetica,sans-serif;caret-color:var(--accent,#194e7a)}.ds-primary:focus-visible,.ds-text:focus-visible,.ds-input:focus-visible,.ds-tab:focus-visible{outline:3px solid var(--focus,#b15b20);outline-offset:4px}"
+    },
+    {
+      "name": "Guide tabs",
+      "kind": "nav",
+      "description": "Rust selected underline; phone layout reveals every section. Production JavaScript supplies roving focus and arrow/Home/End behavior.",
+      "html": "<nav class=\"ds-tabs\" role=\"tablist\" aria-label=\"Guide sections\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">Game day</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">Schedule &amp; TV</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">Players</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">Pitching</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">Playoff picture</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">News &amp; buzz</button></nav>",
+      "css": ".ds-tabs{display:flex;padding:9px 20px 0;gap:7px;border-bottom:1px solid var(--line,#d8d3c6);overflow-x:auto}.ds-tab{white-space:nowrap;padding:16px 15px 14px;border:0;background:transparent;border-bottom:3px solid transparent;font:15px Arial,Helvetica,sans-serif;color:var(--ink,#193746);min-height:50px;cursor:pointer}.ds-tab[aria-selected=true]{border-color:var(--red,#a04432);color:var(--red,#a04432);font-weight:700}.ds-tab:hover{background:var(--paper,#f6f2e8)}@media(max-width:560px){.ds-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:4px 7px 0;overflow:visible;gap:0}.ds-tab{white-space:normal;padding:10px 5px;line-height:1.3;font-size:13px;min-height:48px}}@media(prefers-reduced-motion:no-preference){.ds-tab{transition:background .18s ease,color .18s ease}}.ds-primary:focus-visible,.ds-text:focus-visible,.ds-input:focus-visible,.ds-tab:focus-visible{outline:3px solid var(--focus,#b15b20);outline-offset:4px}"
+    },
+    {
+      "name": "Game status",
+      "kind": "chip",
+      "refersTo": "status",
+      "description": "Noninteractive text status; warmer color signals live play.",
+      "html": "<span class=\"ds-pill\">Scheduled</span> <span class=\"ds-pill ds-live\">Live</span>",
+      "css": ".ds-pill{display:inline-flex;align-items:center;background:var(--pale,#e9ede9);padding:4px 10px;border-radius:20px;font:700 12px/1.5 Arial,Helvetica,sans-serif;color:#385047}.ds-live{background:#f4e4d4;color:#8c421e}"
+    },
+    {
+      "name": "Context note",
+      "kind": "card",
+      "refersTo": "note",
+      "description": "A warm paper inset for series context.",
+      "html": "<aside class=\"ds-note\"><h3>October is taking shape.</h3><p>Opponents, game times and TV assignments will appear as they’re announced.</p><button class=\"ds-text\">See the playoff picture</button></aside>",
+      "css": ".ds-note{background:#efeee3;border-radius:10px;padding:22px;color:var(--ink,#193746)}.ds-note h3{font:500 25px/1.12 GuideSerif,Georgia,serif;margin:0 0 12px}.ds-note p{font:14px/1.5 Arial,Helvetica,sans-serif;margin:10px 0}.ds-text{border:0;background:none;min-height:44px;padding:8px 4px;color:var(--accent,#194e7a);font:700 13px Arial,Helvetica,sans-serif;cursor:pointer}.ds-text:hover{color:var(--red,#a04432);text-decoration:underline}.ds-primary:focus-visible,.ds-text:focus-visible,.ds-input:focus-visible,.ds-tab:focus-visible{outline:3px solid var(--focus,#b15b20);outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Vintage Baseball Program",
+    "overview": "Warm ivory paper, dark printed ink, rust-colored italic headlines, and the supplied baseball-player illustration make this feel like a program kept close at the ballpark. The denim baseball pocket icon anchors the identity. This is a code-led first implementation of the supplied direction, without an approved visual comp.\n\nThe guide pairs expressive serif headings with plain sans-serif controls and data. Compact means easy to consult across computers, tablets, and phones, including for older readers. Cubs and White Sox receive the same space and the same navigation.",
+    "keyCharacteristics": [
+      "Warm paper and dark ink with restrained rust accents.",
+      "Serif editorial headings, sans-serif controls, and tabular numeric data.",
+      "Equal team selectors and a persistent six-section guide.",
+      "Supplied baseball artwork and denim pocket identity.",
+      "Flat surfaces, fine rules, explicit controls, and an optional larger-text mode."
+    ],
+    "rules": [
+      {
+        "name": "The Equal Billing Rule",
+        "body": "Team choice changes the accent and content, never the selector width or navigation structure.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading Roles Rule",
+        "body": "Use the serif for editorial headings and date emphasis; keep controls and statistical data in the sans-serif.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do preserve equal team widths and identical section navigation.",
+      "Do retain the supplied baseball-player artwork and denim pocket identity.",
+      "Do pair serif editorial headings with sans-serif controls and statistics.",
+      "Do preserve visible focus, labeled controls, tab keyboard behavior, and larger-text support.",
+      "Do show all six tabs on phones and let wide data tables scroll.",
+      "Do communicate pending information and feed failures in explicit text."
+    ],
+    "donts": [
+      "Don't introduce shadows where paper tone and fine rules already establish grouping.",
+      "Don't make team selection depend on color alone.",
+      "Don't shrink statistical tables to force every column into a phone viewport.",
+      "Don't replace user artwork with generic baseball decoration.",
+      "Don't treat the smallest existing metadata text as a default for new reading content."
+    ]
+  }
+}
+
