@@ -13,7 +13,8 @@ const localDay=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago',y
 const timeString=g=>hasKnownTime(g)?dateFormat(g.gameDate,{hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'Time to be announced';
 const dateString=g=>dateFormat(g.gameDate,{weekday:'short',month:'short',day:'numeric'});
 const gameDateString=g=>hasKnownTime(g)?dateString(g):new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',timeZone:'UTC'}).format(new Date((g.officialDate||g.gameDate.slice(0,10))+'T12:00:00Z'));
-const ext=(url,label,cls='')=>`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer"${cls?` class="${cls}"`:''}>${label} <span aria-hidden="true">↗</span></a>`;
+const externalIcon='<svg class="link-icon" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 12 12 4M4 4h8v8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ext=(url,label,cls='')=>`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer"${cls?` class="${cls}"`:''}>${label} ${externalIcon}</a>`;
 const logo=id=>`<img src="https://www.mlbstatic.com/team-logos/${Number(id)}.svg" alt="" loading="lazy" width="39" height="39">`;
 const pending=(title,text,link)=>`<div class="empty-state"><h3>${title}</h3><p>${text}</p>${link||''}</div>`;
 async function request(path,ttl=60000){
@@ -38,20 +39,21 @@ function watch(g){
   const override=state.editorial.broadcastOverrides?.[g.gamePk];
   return override?.label?`${esc(override.label)}${override.source?` · ${ext(override.source,'Listing')}`:''}`:tvNames(g,state.team).map(esc).join(' · ')||'TV / streaming to be announced';
 }
-function playoffNote(){return`<aside class="schedule-note"><h3>A little patience.<br>A lot of October.</h3><p>${esc(state.editorial.notice||'Opponents, game times and TV assignments will appear as they’re announced.')}</p><ul class="waiting-list"><li>Playoff opponent <span>Awaiting matchup</span></li><li>Series roster <span>Awaiting announcement</span></li><li>TV & streaming <span>Game-by-game updates</span></li></ul><button class="text-button next-link" data-go="playoffs">See the playoff picture <span aria-hidden="true">→</span></button></aside>`;}
+function playoffNote(){return`<aside class="schedule-note"><h3>October is taking shape.</h3><p>${esc(state.editorial.notice||'Opponents, game times and TV assignments will appear as they’re announced.')}</p><ul class="waiting-list"><li>Playoff opponent <span>Awaiting matchup</span></li><li>Series roster <span>Awaiting announcement</span></li><li>TV & streaming <span>Game-by-game updates</span></li></ul><button class="text-button next-link" data-go="playoffs">See the playoff picture</button></aside>`;}
 function upcomingAside(games){
  const upcoming=games.filter(g=>postseasonTypes.has(g.gameType)&&g.status?.abstractGameState!=='Final');
  if(!upcoming.length)return playoffNote();
- const g=upcoming[0];return`<aside class="schedule-note"><h3>Next in October</h3><p>${esc(stages[g.gameType]||'Postseason')}${g.seriesGameNumber?` · Game ${g.seriesGameNumber}`:''}</p><p><strong>${esc(g.teams.away.team.name)} at ${esc(g.teams.home.team.name)}</strong></p><ul class="waiting-list"><li>${esc(gameDateString(g))}<span>${esc(timeString(g))}</span></li><li>Where to watch<span>${watch(g)}</span></li></ul><p>Series rosters and probable pitchers may change before game time.</p><button class="text-button next-link" data-go="schedule">View the schedule <span aria-hidden="true">→</span></button></aside>`;
+ const g=upcoming[0];return`<aside class="schedule-note series-note"><h3>${esc(stages[g.gameType]||'Postseason')}</h3><p>Series rosters are still to be confirmed. Check the Players and Pitching tabs for current active rosters.</p><button class="text-button next-link" data-go="schedule">See all series games & TV listings</button><button class="text-button next-link" data-go="playoffs">Explore the playoff picture</button></aside>`;
 }
 function scoreBlock(g){
  const played=['Live','Final'].includes(g.status?.abstractGameState),isLive=g.status?.abstractGameState==='Live';
  return`<div class="scoreboard"><div class="status-line"><span class="pill ${isLive?'live':''}">${esc(g.status?.detailedState||'Scheduled')}</span><span>${esc(stages[g.gameType]||'Regular season')}${g.seriesGameNumber&&postseasonTypes.has(g.gameType)?` · Game ${g.seriesGameNumber}`:''}</span></div><div class="score-teams">${['away','home'].map(side=>{const t=g.teams[side];return`<div class="score-team">${logo(t.team.id)}<span>${esc(t.team.name)}</span><strong>${played?esc(t.score??'—'):'—'}</strong></div>`}).join('')}</div><p class="game-date">${esc(gameDateString(g))}${played?'':` · ${esc(timeString(g))}`}</p><p class="game-venue">${esc(g.venue?.name||'Venue to be announced')}${g.venue?.location?.city?` · ${esc(g.venue.location.city)}`:''}</p></div>`;
 }
 function lineScore(g){
+ const aggregate=`<p class="aggregate-score">${['away','home'].map(s=>`<span>${esc(g.teams[s].team.abbreviation||g.teams[s].team.teamName||g.teams[s].team.name)} <strong>${esc(g.teams[s].score??'—')}</strong></span>`).join('<span class="score-divider" aria-hidden="true">–</span>')}</p>`;
  const l=state.game?.gamePk===g.gamePk?state.game.liveData?.linescore:g.linescore;
  if(!l?.innings?.length)return`<p class="small muted">${state.gameError?'The detailed box score is temporarily unavailable.':g.status?.abstractGameState==='Preview'?'The box score will appear after the first pitch.':'Detailed box score is not yet available.'} ${ext(`https://www.mlb.com/gameday/${g.gamePk}`,'MLB Gameday')}</p>`;
- return`<div class="table-wrap"><table class="line-score"><caption class="small muted">${esc(g.status?.detailedState||'Game')} · Inning-by-inning score</caption><thead><tr><th scope="col">Team</th>${l.innings.map(i=>`<th scope="col">${i.num}</th>`).join('')}<th class="total" scope="col">R</th><th class="total" scope="col">H</th><th class="total" scope="col">E</th></tr></thead><tbody>${['away','home'].map(s=>`<tr><th scope="row">${esc(g.teams[s].team.abbreviation||g.teams[s].team.teamName||g.teams[s].team.name)}</th>${l.innings.map(i=>`<td>${esc(i[s]?.runs??'—')}</td>`).join('')}<td class="total">${esc(l.teams?.[s]?.runs??'—')}</td><td class="total">${esc(l.teams?.[s]?.hits??'—')}</td><td class="total">${esc(l.teams?.[s]?.errors??'—')}</td></tr>`).join('')}</tbody></table></div>`;
+ return aggregate+`<p class="table-hint small muted">Scroll the inning table sideways for all innings and totals.</p><div class="table-wrap" tabindex="0" role="region" aria-label="Inning-by-inning score, scroll horizontally"><table class="line-score"><caption class="small muted">${esc(g.status?.detailedState||'Game')} · Inning-by-inning score</caption><thead><tr><th scope="col">Team</th>${l.innings.map(i=>`<th scope="col">${i.num}</th>`).join('')}<th class="total" scope="col">R</th><th class="total" scope="col">H</th><th class="total" scope="col">E</th></tr></thead><tbody>${['away','home'].map(s=>`<tr><th scope="row">${esc(g.teams[s].team.abbreviation||g.teams[s].team.teamName||g.teams[s].team.name)}</th>${l.innings.map(i=>`<td>${esc(i[s]?.runs??'—')}</td>`).join('')}<td class="total">${esc(l.teams?.[s]?.runs??'—')}</td><td class="total">${esc(l.teams?.[s]?.hits??'—')}</td><td class="total">${esc(l.teams?.[s]?.errors??'—')}</td></tr>`).join('')}</tbody></table></div>`;
 }
 function gameDay(){
  const games=flattenSchedule(state.schedule),{live,next,last,focus}=selectGames(games);
@@ -131,5 +133,5 @@ function setTextSize(on){document.documentElement.classList.toggle('large-text',
 setTextSize(read('pocket-large','0')==='1');$('#text-size').addEventListener('click',()=>setTextSize(!document.documentElement.classList.contains('large-text')));
 request('/editorial.json',300000).then(d=>{state.editorial=d;render()}).catch(()=>{});
 render();loadTeam();
-setInterval(()=>{if(!document.hidden&&!state.busy&&state.tab==='today'&&selectGames(flattenSchedule(state.schedule)).live)loadTeam()},60000);
+setInterval(()=>{if(!document.hidden&&!state.busy&&state.tab==='today')loadTeam()},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!state.busy)loadTeam()});
