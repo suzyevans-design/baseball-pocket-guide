@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#193746">
+  <meta name="description" content="Your compact guide to Chicago playoff baseball. Cubs and White Sox schedules, rosters, scores, and where to watch, in one easy place.">
+  <title>Playoff Pocket Guide · Chicago baseball</title>
+  <link rel="icon" href="/assets/icon-192.png" type="image/png"><link rel="apple-touch-icon" href="/assets/icon-192.png">
+  <link rel="manifest" href="/manifest.webmanifest"><link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#guide">Skip to the guide</a>
+  <header class="masthead wrap">
+    <a class="brand" href="/" aria-label="Playoff Pocket Guide home"><img src="/assets/icon-192.png" width="54" height="54" alt=""><span>PKT.guide<span class="brand-sub">A little guide. A whole lot of baseball.</span></span></a>
+    <div class="header-actions"><button id="text-size" class="quiet-button" aria-pressed="false" aria-label="Use larger text">Aa <span>Larger text</span></button><button id="print" class="quiet-button">Print guide</button></div>
+  </header>
+  <main class="wrap">
+    <section class="intro" aria-labelledby="title">
+      <div class="intro-copy"><h1 id="title">Playoff<br><em>Pocket Guide.</em></h1><p>Both sides of Chicago.<br>Everything you need for the next pitch.</p><span class="season-mark">Chicago baseball <span aria-hidden="true">/</span> <span id="season-year">2026</span></span></div>
+      <img class="suzy-art" src="/assets/suzy.webp" alt="A baseball player tucks her scorecard into her pocket beside the dugout." width="520" height="672" fetchpriority="high">
+    </section>
+    <section id="guide" class="guide" aria-label="Baseball guide">
+      <div class="team-switch" role="group" aria-label="Choose your Chicago team">
+        <button data-team="112" aria-pressed="true"><span class="team-monogram cubs" aria-hidden="true">C</span><span><small>North Side</small>Chicago Cubs</span><span class="selected-mark" aria-hidden="true">Selected</span></button>
+        <button data-team="145" aria-pressed="false"><span class="team-monogram sox" aria-hidden="true">S</span><span><small>South Side</small>Chicago White Sox</span><span class="selected-mark" aria-hidden="true">Selected</span></button>
+      </div>
+      <nav class="tabs" role="tablist" aria-label="Guide sections">
+        <button id="tab-today" role="tab" aria-selected="true" aria-controls="panel" data-tab="today">Game day</button>
+        <button id="tab-schedule" role="tab" aria-selected="false" tabindex="-1" aria-controls="panel" data-tab="schedule">Schedule & TV</button>
+        <button id="tab-roster" role="tab" aria-selected="false" tabindex="-1" aria-controls="panel" data-tab="roster">Players</button>
+        <button id="tab-pitching" role="tab" aria-selected="false" tabindex="-1" aria-controls="panel" data-tab="pitching">Pitching</button>
+        <button id="tab-playoffs" role="tab" aria-selected="false" tabindex="-1" aria-controls="panel" data-tab="playoffs">Playoff picture</button>
+        <button id="tab-news" role="tab" aria-selected="false" tabindex="-1" aria-controls="panel" data-tab="news">News & buzz</button>
+      </nav>
+      <div class="guide-tools"><span id="team-context">Chicago Cubs guide</span><label>Times <select id="timezone" aria-label="Game time zone"><option value="local">My time zone</option><option value="America/Chicago">Chicago (CT)</option></select></label><button id="refresh" class="text-button">Refresh</button></div>
+      <div id="update-status" class="update-status" role="status">Checking MLB for the latest details…</div>
+      <div id="panel" role="tabpanel" aria-labelledby="tab-today" tabindex="0"><div class="empty-state"><h2>Opening your guide…</h2><p>We’re checking the latest game information.</p></div></div>
+    </section>
+    <section class="keep-handy"><img src="/assets/icon-192.png" alt="Baseball pocket guide icon" width="66" height="66"><div><h2>Keep a little baseball handy.</h2><p>Bookmark this guide on your computer, or add it to your phone’s home screen.</p><details><summary>How to keep this guide</summary><p><strong>Computer:</strong> press Ctrl+D (Windows) or ⌘D (Mac) to bookmark. Use “Print guide” above to print the current section.</p><p><strong>iPhone or iPad:</strong> open in Safari, tap Share, then Add to Home Screen. <strong>Android:</strong> open Chrome’s menu and choose Add to Home screen or Install app.</p></details></div></section>
+  </main>
+  <footer class="wrap"><span>Made for the love of the game.</span><p>An independent fan guide. Not affiliated with MLB, the Chicago Cubs, or the Chicago White Sox. Game details can change; check official listings before making plans.</p><a href="https://www.mlb.com/postseason" target="_blank" rel="noopener noreferrer">Official MLB postseason</a></footer>
+  <noscript><p class="wrap">Please enable JavaScript for live information. Visit <a href="https://www.mlb.com/cubs">MLB Cubs</a> or <a href="https://www.mlb.com/whitesox">MLB White Sox</a> for official schedules.</p></noscript>
+  <script type="module" src="/app.js"></script>
+</body></html>

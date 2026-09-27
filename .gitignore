@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.impeccable/review/
+*.tar.gz
+.DS_Store
+Baseball Pocket Guide Project Directions.docx
+Codex Image*copy.png
+pocket-logo-pkt-guide-heart-stitch copy.png
