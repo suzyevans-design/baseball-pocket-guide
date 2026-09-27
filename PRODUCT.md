@@ -18,7 +18,7 @@ This project begins September 27, 2026. Playoff opponents, times, networks, and 
 Identical tabs for both teams. Read live MLB data when available, show source and update time, distinguish unavailable feeds from unannounced details. Display local timezone with Chicago time option. Retain last box score until the next game. Weather depends on confirmed venue and forecast range. Matchup statistics are a bonus. Social content may link to official accounts. Custom domain baseball.pkt.guide will be configured later by the user at Porkbun.
 
 ## Brand Commitments
-Title Playoff Pocket Guide. Supplied vintage baseball-player illustration and PKT.guide pocket logo. Existing Cubs guide is a reference for warmth and compact tab navigation, not an exact copy. Equal team prominence.
+Displayed title and browser-tab name baseball.pkt.guide, per user refinement. Subtitle Your Chicago playoff pocket guide. Supplied vintage baseball-player illustration, now with approved red SUZY lettering, and PKT.guide pocket logo adapted with a baseball. Existing Cubs guide is a reference for warmth and compact tab navigation, not an exact copy. Equal team prominence.
 
 ## Evidence on Hand
 Baseball Pocket Guide Project Directions.docx and two user-supplied PNGs. Reference https://cubs-pocket-scorebook.suzyevans.chatgpt.site.
