@@ -33,17 +33,14 @@ export async function apiResponse(request,ctx={}) {
   if(request.method!=='GET')return new Response('Method not allowed',{status:405});
   const upstream=upstreamFor(url);
   if(!upstream)return Response.json({error:'Unknown or invalid request'},{status:400});
-  const cache=globalThis.caches?.default;
-  const cacheKey=new Request(request.url);
-  const hit=cache&&await cache.match(cacheKey);
-  if(hit)return hit;
+  // Sites' isolated Workers do not permit the default Cache API.
+  // Use the existing HTTP/browser TTLs without accessing that runtime cache.
   try{
     const res=await fetch(upstream,{headers:{'Accept':url.pathname==='/api/news'?'application/rss+xml':'application/json'},signal:AbortSignal.timeout(12000)});
     if(!res.ok)throw new Error('Upstream unavailable');
     const body=await res.text();
     if(url.pathname!=='/api/news')JSON.parse(body);
     const response=new Response(body,{headers:{'Content-Type':url.pathname==='/api/news'?'application/xml; charset=utf-8':'application/json; charset=utf-8','Cache-Control':`public, max-age=${url.pathname==='/api/game'?30:url.pathname==='/api/news'?300:60}`,'X-Data-Fetched-At':new Date().toISOString(),'X-Content-Type-Options':'nosniff'}});
-    if(cache&&ctx.waitUntil)ctx.waitUntil(cache.put(cacheKey,response.clone()));
     return response;
   }catch{return Response.json({error:'The data provider is temporarily unavailable. Please try again.'},{status:502,headers:{'Cache-Control':'no-store'}})}
 }
