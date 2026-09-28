@@ -23,6 +23,7 @@
         <button id="tab-playoffs" role="tab" aria-selected="false" tabindex="-1" aria-controls="panel" data-tab="playoffs">Playoff picture</button>
         <button id="tab-news" role="tab" aria-selected="false" tabindex="-1" aria-controls="panel" data-tab="news">News & buzz</button>
       </nav>
+    <section class="chicago-overview" aria-labelledby="chicago-title"><div class="overview-heading"><h2 id="chicago-title">Both sides of Chicago.</h2><p id="overview-zone">Next games · Your time zone</p></div><div id="chicago-games" class="chicago-games"><p>Checking both teams’ next games…</p></div></section>
     <section class="intro" aria-labelledby="title">
       <div class="intro-copy"><div class="pocket-identity"><img src="/assets/pocket-baseball-earbuds.webp" width="150" height="150" alt="PKT.guide phone and earbuds in a denim pocket with a baseball patch."><h1 id="title">baseball.<br><em>pkt.guide</em></h1></div><p>Your Chicago playoff pocket guide.<br>Both sides of the city. Every pitch.</p><span class="season-mark">Chicago baseball <span aria-hidden="true">/</span> <span id="season-year">2026</span></span></div>
       <figure class="intro-memory"><a href="/assets/london-memory.webp" target="_blank" rel="noopener" aria-label="Enlarge Suzy’s Trafalgar Square photograph"><img src="/assets/london-memory.webp" width="1200" height="1600" alt="Suzy with the Cubs mascot in Trafalgar Square." fetchpriority="high"></a><figcaption><h2><svg class="memory-heart" viewBox="0 0 32 30" aria-hidden="true" focusable="false"><path d="M16 26C12 22 3 16 3 9a7 7 0 0 1 13-3A7 7 0 0 1 29 9c0 7-9 13-13 17Z" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2.7 2.2" stroke-linecap="round"/></svg><span>More than a game.</span></h2><a href="#memories">See our baseball memories</a></figcaption></figure>
@@ -33,6 +34,7 @@
         <button data-team="112" aria-pressed="true"><img class="team-photo north-photo" src="/assets/london-memory.webp" width="84" height="84" alt=""><span><small>North Side</small>Chicago Cubs</span><span class="selected-mark" aria-hidden="true">Selected</span></button>
         <button data-team="145" aria-pressed="false"><img class="team-photo" src="/assets/comiskey-1986.webp" width="84" height="84" alt=""><span><small>South Side</small>Chicago White Sox</span><span class="selected-mark" aria-hidden="true">Selected</span></button>
       </div>
+      <div id="series-reading" class="series-reading"></div>
       <div class="guide-tools"><span id="team-context">Chicago Cubs guide</span><label>Times <select id="timezone" aria-label="Game time zone"><option value="local">My time zone</option><option value="America/Chicago">Chicago (CT)</option></select></label><button id="refresh" class="text-button">Refresh</button></div>
       <div id="update-status" class="update-status" role="status">Checking MLB for the latest details…</div>
       <div id="panel" role="tabpanel" aria-labelledby="tab-today" tabindex="0"><div class="empty-state"><h2>Opening your guide…</h2><p>We’re checking the latest game information.</p></div></div>

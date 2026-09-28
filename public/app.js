@@ -6,6 +6,7 @@ const save=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
 const state={team:Number(read('pocket-team','112')),tab:'today',zone:read('pocket-zone','local'),schedule:null,scheduleError:false,updated:null,busy:false,postseason:null,postseasonError:false,rosters:{},rosterErrors:{},rosterTeam:null,game:null,gameError:false,news:{},newsErrors:{},weather:{},editorial:{}};
 if(!teams[state.team])state.team=112;
 const cache=new Map();let version=0;let renderVersion=0;
+const overview={};let overviewBusy=false;
 const team=()=>teams[state.team];
 const zone=()=>state.zone==='local'?Intl.DateTimeFormat().resolvedOptions().timeZone:state.zone;
 const dateFormat=(date,opts={})=>new Intl.DateTimeFormat('en-US',{timeZone:zone(),...opts}).format(new Date(date));
@@ -35,9 +36,27 @@ function updateControls(){
   status.textContent=state.busy?'Checking MLB for the latest details…':state.scheduleError?(state.schedule?`Unable to refresh. Showing the last loaded schedule from ${dateFormat(state.updated,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'})}.`:'MLB’s schedule is unavailable right now. Try Refresh or use the official schedule link.'):`MLB schedule checked ${state.updated?dateFormat(state.updated,{hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'just now'}. Times and broadcasts may change.`;
 }
 function head(title,description='',link=''){return`<div class="section-head"><div><h2>${title}</h2>${description?`<p>${description}</p>`:''}</div>${link}</div>`;}
-function watch(g){
+function watch(g,teamId=state.team){
   const override=state.editorial.broadcastOverrides?.[g.gamePk];
-  return override?.label?`${esc(override.label)}${override.source?` · ${ext(override.source,'Listing')}`:''}`:tvNames(g,state.team).map(esc).join(' · ')||'TV / streaming to be announced';
+  return override?.label?`${esc(override.label)}${override.source?` · ${ext(override.source,'Listing')}`:''}`:tvNames(g,teamId).map(esc).join(' · ')||'TV / streaming to be announced';
+}
+function renderOverview(){
+ $('#overview-zone').textContent=`Next games · ${state.zone==='local'?'Your time zone: ':''}${zone().replaceAll('_',' ')}`;
+ $('#chicago-games').innerHTML=Object.entries(teams).map(([id,t])=>{
+  const entry=overview[id],games=flattenSchedule(entry?.data),{live,next}=selectGames(games),g=live||next;
+  return`<article class="overview-game"><h3>${t.short}</h3>${g?`<p class="overview-matchup">${esc(g.teams.away.team.name)} at ${esc(g.teams.home.team.name)}</p><p class="overview-time">${esc(gameDateString(g))} · ${live?'Live now':esc(timeString(g))}</p><p>${esc(stages[g.gameType]||'Regular season')}${g.seriesGameNumber?` · Game ${g.seriesGameNumber}`:''}${g.ifNecessary==='Y'?' · If necessary':''} · ${esc(g.venue?.name||'Venue to be announced')}</p><p><strong>Watch:</strong> ${watch(g,Number(id))}</p>`:`<p>${entry?.error?'Schedule temporarily unavailable.':entry?.data?'Next game to be announced.':'Checking the next game…'}</p>`}${entry?.error&&g?'<p class="overview-warning">Unable to refresh. Showing the last loaded listing.</p>':''}<button class="text-button" data-overview-team="${id}">Open ${t.short} guide</button></article>`;
+ }).join('');
+ $('#chicago-games').querySelectorAll('[data-overview-team]').forEach(b=>b.addEventListener('click',()=>{document.querySelector(`[data-team="${b.dataset.overviewTeam}"]`).click();changeTab('today')}));
+}
+async function loadOverview(){
+ if(overviewBusy)return;overviewBusy=true;
+ await Promise.all(Object.keys(teams).map(async id=>{try{overview[id]={data:await request(`/api/schedule?teamId=${id}`),error:false}}catch{overview[id]={...overview[id],error:true}}}));
+ overviewBusy=false;renderOverview();
+}
+function renderSeriesReading(){
+ const links=(state.editorial.featuredLinks||[]).filter(l=>l.teamId===state.team&&officialUrl(l.url));
+ $('#series-reading').hidden=!links.length;
+ $('#series-reading').innerHTML=links.map(l=>`<p><strong>Wild Card reading · MLB</strong>${ext(l.url,esc(l.title))}<span>MLB’s original article, including any updates to its analysis.</span></p>`).join('');
 }
 function playoffNote(){return`<aside class="schedule-note"><h3>October is taking shape.</h3><p>${esc(state.editorial.notice||'Opponents, game times and TV assignments will appear as they’re announced.')}</p><ul class="waiting-list"><li>Playoff opponent <span>Awaiting matchup</span></li><li>Series roster <span>Awaiting announcement</span></li><li>TV & streaming <span>Game-by-game updates</span></li></ul><button class="text-button next-link" data-go="playoffs">See the playoff picture</button></aside>`;}
 function upcomingAside(games){
@@ -90,7 +109,7 @@ function parseNews(xml){
  return[...doc.querySelectorAll('item')].slice(0,6).map(i=>({title:i.querySelector('title')?.textContent,url:officialUrl(i.querySelector('link')?.textContent),date:i.querySelector('pubDate')?.textContent})).filter(i=>i.url&&i.title);
 }
 function news(){const entries=state.news[state.team],error=state.newsErrors[state.team];return head('From the clubhouse.','A few headlines. A little baseball conversation.',ext(`https://www.mlb.com/${team().slug}/news`,'All team news'))+(entries?.length?`<ul class="news-list">${entries.map(n=>`<li>${n.date&&!Number.isNaN(Date.parse(n.date))?`<time datetime="${new Date(n.date).toISOString()}">${esc(dateFormat(n.date,{month:'short',day:'numeric'}))} · MLB</time>`:''}${ext(n.url,esc(n.title))}</li>`).join('')}</ul>`:pending(error?'Headlines are taking a breather.':entries?'No headlines available yet.':'Checking the clubhouse…',error?'The news feed couldn’t be reached. You can still read the latest directly from the team.':'New team headlines will appear here as the feed updates.',ext(`https://www.mlb.com/${team().slug}/news`,'Read official team news','button')))+`<section class="subsection"><h3>Around the ballpark</h3><p class="roster-note">Photos, highlights and conversation from the team’s official accounts. These open on the original platform.</p><div class="social-links">${ext(`https://www.instagram.com/${team().social}/`,'Instagram')}${ext(`https://x.com/${team().social}`,'X')}${ext(`https://www.mlb.com/${team().slug}/video`,'Team videos')}</div></section>`;}
-function render(){updateControls();const renderers={today:gameDay,schedule,roster:()=>rosterContent(false),pitching:()=>rosterContent(true),playoffs:playoffPicture,news};$('#panel').innerHTML=renderers[state.tab]();bindPanel();}
+function render(){updateControls();renderOverview();renderSeriesReading();const renderers={today:gameDay,schedule,roster:()=>rosterContent(false),pitching:()=>rosterContent(true),playoffs:playoffPicture,news};$('#panel').innerHTML=renderers[state.tab]();bindPanel();}
 function bindPanel(){document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>changeTab(b.dataset.go)));$('#player-search')?.addEventListener('input',e=>{$('#roster-rows').innerHTML=rosterRows(state.rosters[state.rosterTeam||state.team]||{},e.target.value,state.tab==='pitching')});$('#roster-team')?.addEventListener('change',async e=>{state.rosterTeam=Number(e.target.value);render();await loadRoster(state.rosterTeam);if(['roster','pitching'].includes(state.tab))render()});}
 async function loadRoster(id){try{state.rosters[id]=await request(`/api/roster?teamId=${id}`,300000);state.rosterErrors[id]=false}catch{state.rosterErrors[id]=true}}
 async function loadTab(){
@@ -127,7 +146,7 @@ async function loadTeam(){
 document.querySelectorAll('[data-team]').forEach(b=>b.addEventListener('click',()=>{if(Number(b.dataset.team)===state.team)return;state.team=Number(b.dataset.team);save('pocket-team',state.team);state.schedule=null;state.game=null;state.rosterTeam=null;state.scheduleError=false;state.updated=null;render();loadTeam()}));
 document.querySelectorAll('[data-tab]').forEach(b=>{b.addEventListener('click',()=>changeTab(b.dataset.tab));b.addEventListener('keydown',e=>{const tabs=[...document.querySelectorAll('[data-tab]')],i=tabs.indexOf(b);let target;if(e.key==='ArrowRight')target=tabs[(i+1)%tabs.length];if(e.key==='ArrowLeft')target=tabs[(i-1+tabs.length)%tabs.length];if(e.key==='Home')target=tabs[0];if(e.key==='End')target=tabs.at(-1);if(target){e.preventDefault();target.focus();changeTab(target.dataset.tab,{jump:false})}})});
 $('#timezone').addEventListener('change',e=>{state.zone=e.target.value;save('pocket-zone',state.zone);render();if(state.tab==='today')loadGameDetails()});
-$('#refresh').addEventListener('click',()=>{cache.clear();loadTeam()});
+$('#refresh').addEventListener('click',()=>{cache.clear();loadTeam();loadOverview()});
 $('#print').addEventListener('click',()=>window.print());
 const photoViewer=$('#photo-viewer');
 document.querySelectorAll('.memories figure>a,.intro-memory>a').forEach(link=>link.addEventListener('click',event=>{
@@ -142,6 +161,6 @@ photoViewer.addEventListener('click',event=>{if(event.target===photoViewer)photo
 function setTextSize(on){document.documentElement.classList.toggle('large-text',on);$('#text-size').setAttribute('aria-pressed',String(on));$('#text-size').setAttribute('aria-label',on?'Use standard text size':'Use larger text');$('#text-size').innerHTML=`Aa <span>${on?'Standard text':'Larger text'}</span>`;save('pocket-large',on?'1':'0')}
 setTextSize(read('pocket-large','0')==='1');$('#text-size').addEventListener('click',()=>setTextSize(!document.documentElement.classList.contains('large-text')));
 request('/editorial.json',300000).then(d=>{state.editorial=d;render()}).catch(()=>{});
-render();loadTeam();
-setInterval(()=>{if(!document.hidden&&!state.busy&&state.tab==='today')loadTeam()},60000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!state.busy)loadTeam()});
+render();loadTeam();loadOverview();
+setInterval(()=>{if(!document.hidden){loadOverview();if(!state.busy&&state.tab==='today')loadTeam()}},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){loadOverview();if(!state.busy)loadTeam()}});
