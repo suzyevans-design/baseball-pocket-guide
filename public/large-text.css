@@ -1,0 +1,36 @@
+/* Reading mode: explicit sizes also cover the original fixed-pixel components. */
+html.large-text{font-size:22px;line-height:1.65}
+.large-text :is(p,li,td,input,select,summary,.game-detail,.game-venue,.roster-note,.pending-strip,.game-row p,.game-row .broadcast,.keep-handy p,.intro-copy p){font-size:22px;line-height:1.65}
+.large-text :is(.small,.muted.small,small,th,.watch-note,.update-status,.status-line,.pill,.season-mark,.team-switch small,.selected-mark,.game-detail b,.game-row time span,.game-row .broadcast span,.news-list time,.memories figcaption span,footer,footer p,footer a){font-size:18px;line-height:1.6}
+.large-text :is(button,.tabs button,.quiet-button,.text-button,.button,.guide-tools,.guide-tools>span,.guide-tools label,.guide-tools select,.guide-tools .text-button,.section-head a,.social-links a,.next-link,.intro-memory figcaption>a){font-size:20px;line-height:1.5}
+.large-text :is(.schedule-note p,.waiting-list li,.section-head p,.playoff-stages p){font-size:21px;line-height:1.6}
+.large-text :is(.team-switch button,.game-row h3,.score-team,.memories figcaption strong){font-size:25px;line-height:1.4}
+.large-text :is(h2,.keep-handy h2){font-size:36px}
+.large-text :is(h3,.schedule-note h3,.series-note h3,.playoff-stages h3,.intro-memory h2){font-size:29px}
+.large-text .game-date{font-size:32px}
+.large-text .tabs{flex-wrap:wrap;overflow:visible}
+.large-text .tabs button{white-space:normal;min-height:56px}
+.large-text .guide-tools{flex-wrap:wrap;gap:14px}
+.large-text .guide-tools select{max-width:100%;min-height:48px}
+.large-text .team-switch button{flex-wrap:wrap}
+.large-text .selected-mark{display:none}
+.large-text .section-head{flex-wrap:wrap}
+.large-text .game-row{grid-template-columns:110px minmax(0,1fr)}
+.large-text .game-row .broadcast{grid-column:2}
+.large-text :is(input,select,summary,button){min-height:48px}
+@media(max-width:800px){.large-text .game-layout{grid-template-columns:1fr}.large-text .tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){
+ .large-text .tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .large-text .tabs button{font-size:20px;padding:12px 6px}
+ .large-text .team-switch button{font-size:20px;align-content:start}
+ .large-text .team-switch small{font-size:17px}
+ .large-text .guide-tools label{font-size:18px;flex-basis:100%;gap:8px}
+ .large-text .guide-tools select{font-size:20px;width:auto;flex:1;min-width:0}
+ .large-text .update-status{font-size:18px}
+ .large-text .details-grid{grid-template-columns:1fr}
+ .large-text .intro-memory h2{font-size:26px}
+ .large-text .intro-memory figcaption>a{font-size:19px}
+ .large-text .game-row{grid-template-columns:90px minmax(0,1fr)}
+ .large-text .game-row h3{font-size:23px}
+ .large-text .quiet-button{font-size:18px}
+}
