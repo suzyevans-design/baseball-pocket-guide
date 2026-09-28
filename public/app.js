@@ -129,6 +129,16 @@ document.querySelectorAll('[data-tab]').forEach(b=>{b.addEventListener('click',(
 $('#timezone').addEventListener('change',e=>{state.zone=e.target.value;save('pocket-zone',state.zone);render();if(state.tab==='today')loadGameDetails()});
 $('#refresh').addEventListener('click',()=>{cache.clear();loadTeam()});
 $('#print').addEventListener('click',()=>window.print());
+const photoViewer=$('#photo-viewer');
+document.querySelectorAll('.memories figure>a,.intro-memory>a').forEach(link=>link.addEventListener('click',event=>{
+ if(typeof photoViewer.showModal!=='function')return;
+ event.preventDefault();const photo=link.querySelector('img');
+ $('#photo-viewer-image').src=link.href;$('#photo-viewer-image').alt=photo?.alt||'';
+ $('#photo-viewer-title').textContent=link.closest('figure')?.querySelector('figcaption strong,figcaption h2')?.textContent||'Baseball memory';
+ photoViewer.showModal();
+}));
+$('#photo-viewer-close').addEventListener('click',()=>photoViewer.close());
+photoViewer.addEventListener('click',event=>{if(event.target===photoViewer)photoViewer.close()});
 function setTextSize(on){document.documentElement.classList.toggle('large-text',on);$('#text-size').setAttribute('aria-pressed',String(on));$('#text-size').setAttribute('aria-label',on?'Use standard text size':'Use larger text');$('#text-size').innerHTML=`Aa <span>${on?'Standard text':'Larger text'}</span>`;save('pocket-large',on?'1':'0')}
 setTextSize(read('pocket-large','0')==='1');$('#text-size').addEventListener('click',()=>setTextSize(!document.documentElement.classList.contains('large-text')));
 request('/editorial.json',300000).then(d=>{state.editorial=d;render()}).catch(()=>{});
