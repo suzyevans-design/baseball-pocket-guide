@@ -117,7 +117,7 @@ async function loadWeather(g,v){
  $('#weather-detail').innerHTML=`${Math.round(low)}–${Math.round(high)}°F · ${rain}% rain chance<small class="muted small" style="display:block">Daily forecast · ${ext('https://open-meteo.com/','Open-Meteo')}</small>`;
  }catch{if(v===renderVersion&&$('#weather-detail'))$('#weather-detail').textContent='Forecast temporarily unavailable'}
 }
-function changeTab(name){state.tab=name;render();loadTab();document.querySelector(`[data-tab="${name}"]`)?.scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});}
+function changeTab(name,{jump=true}={}){state.tab=name;render();loadTab();if(jump){const panel=$('#panel');panel.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});panel.focus({preventScroll:true})}}
 async function loadTeam(){
  const v=++version;++renderVersion;const id=state.team;state.busy=true;state.scheduleError=false;updateControls();
  try{const d=await request(`/api/schedule?teamId=${id}`);if(v!==version)return;state.schedule=d;state.updated=new Date().toISOString();save(`pocket-schedule-${id}`,JSON.stringify({data:d,updated:state.updated}));}
@@ -125,7 +125,7 @@ async function loadTeam(){
  if(v!==version)return;state.busy=false;render();await loadTab();
 }
 document.querySelectorAll('[data-team]').forEach(b=>b.addEventListener('click',()=>{if(Number(b.dataset.team)===state.team)return;state.team=Number(b.dataset.team);save('pocket-team',state.team);state.schedule=null;state.game=null;state.rosterTeam=null;state.scheduleError=false;state.updated=null;render();loadTeam()}));
-document.querySelectorAll('[data-tab]').forEach(b=>{b.addEventListener('click',()=>changeTab(b.dataset.tab));b.addEventListener('keydown',e=>{const tabs=[...document.querySelectorAll('[data-tab]')],i=tabs.indexOf(b);let target;if(e.key==='ArrowRight')target=tabs[(i+1)%tabs.length];if(e.key==='ArrowLeft')target=tabs[(i-1+tabs.length)%tabs.length];if(e.key==='Home')target=tabs[0];if(e.key==='End')target=tabs.at(-1);if(target){e.preventDefault();target.focus();changeTab(target.dataset.tab)}})});
+document.querySelectorAll('[data-tab]').forEach(b=>{b.addEventListener('click',()=>changeTab(b.dataset.tab));b.addEventListener('keydown',e=>{const tabs=[...document.querySelectorAll('[data-tab]')],i=tabs.indexOf(b);let target;if(e.key==='ArrowRight')target=tabs[(i+1)%tabs.length];if(e.key==='ArrowLeft')target=tabs[(i-1+tabs.length)%tabs.length];if(e.key==='Home')target=tabs[0];if(e.key==='End')target=tabs.at(-1);if(target){e.preventDefault();target.focus();changeTab(target.dataset.tab,{jump:false})}})});
 $('#timezone').addEventListener('change',e=>{state.zone=e.target.value;save('pocket-zone',state.zone);render();if(state.tab==='today')loadGameDetails()});
 $('#refresh').addEventListener('click',()=>{cache.clear();loadTeam()});
 $('#print').addEventListener('click',()=>window.print());
